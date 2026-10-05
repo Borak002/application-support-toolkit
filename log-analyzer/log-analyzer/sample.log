@@ -1,0 +1,20 @@
+2026-10-05 09:00:01 INFO Application started successfully
+2026-10-05 09:01:15 INFO Health check completed
+2026-10-05 09:03:22 INFO Transaction request received
+2026-10-05 09:03:23 INFO Transaction processed successfully
+2026-10-05 09:05:10 ERROR Database connection failed
+2026-10-05 09:05:10 EXCEPTION Connection timeout while connecting to database
+2026-10-05 09:05:11 ERROR HTTP 500 Internal Server Error
+2026-10-05 09:06:02 ERROR Request timed out
+2026-10-05 09:06:04 INFO Retrying request
+2026-10-05 09:06:06 ERROR HTTP 503 Service Unavailable
+2026-10-05 09:08:12 INFO Service recovered
+2026-10-05 09:10:20 ERROR Authentication failed HTTP 401
+2026-10-05 09:11:04 INFO Customer request received
+2026-10-05 09:11:05 ERROR Resource HTTP 404 Not Found
+2026-10-05 09:12:10 INFO Request completed successfully
+2026-10-05 09:15:33 ERROR HTTP 500 Internal Server Error
+2026-10-05 09:15:34 EXCEPTION Application processing exception
+2026-10-05 09:16:00 ERROR Database request timeout
+2026-10-05 09:18:44 INFO Database connection restored
+2026-10-05 09:20:00 INFO Application operating normally
