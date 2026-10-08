@@ -4,58 +4,880 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Practical application support tools, troubleshooting guides, incident management resources, and technical documentation by Balogun Razaq Olamilekan.">
-  <title>Application Support Toolkit | Balogun Razaq</title>
+
+  <meta name="description" content="Explore practical application support resources, incident management workflows, Linux commands, SQL diagnostics, API troubleshooting, payment operations, and technical runbooks by Balogun Razaq Olamilekan.">
+
+  <meta name="author" content="Balogun Razaq Olamilekan">
+  <meta name="theme-color" content="#0b1020">
+
+  <title>Application Support Toolkit | Razaq Balogun</title>
+
   <style>
+    :root {
+      --bg: #0b1020;
+      --surface: #111a2e;
+      --surface-light: #17233a;
+      --text: #edf2f7;
+      --muted: #a6b2c5;
+      --accent: #e3bd7a;
+      --border: #29364d;
+      --success: #75d6a2;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 850px;
-      margin: 60px auto;
-      padding: 0 24px;
-      background: #0b1020;
-      color: #f3f4f6;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
       line-height: 1.7;
     }
-    h1 { color: #d9b77a; }
-    a { color: #d9b77a; }
-    .card {
-      padding: 20px;
-      margin: 20px 0;
-      border: 1px solid #343b4d;
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, 16, 32, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      color: var(--text);
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      padding: 90px 0 70px;
+      background:
+        radial-gradient(ellipse at top right, #23304a 0%, transparent 55%);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin: 18px 0;
+      font-size: clamp(2.4rem, 6vw, 4.7rem);
+      line-height: 1.08;
+      letter-spacing: -2px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 19px;
+      border: 1px solid var(--accent);
+      border-radius: 9px;
+      font-weight: 700;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: #111827;
+    }
+
+    .button-secondary {
+      color: var(--accent);
+    }
+
+    .section {
+      padding: 58px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 26px;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 8px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+    }
+
+    .section-heading p {
+      max-width: 720px;
+      color: var(--muted);
+    }
+
+    .search-wrap {
+      margin: 28px 0;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 15px 17px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 10px;
+      outline: none;
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      padding: 23px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .card-icon {
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+    }
+
+    .card p {
+      flex-grow: 1;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .card-link {
+      font-weight: 700;
+    }
+
+    .resource {
+      margin-top: 24px;
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .resource h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    .resource h4 {
+      margin-bottom: 6px;
+    }
+
+    .resource p,
+    .resource li {
+      color: var(--muted);
+    }
+
+    .resource li {
+      margin-bottom: 7px;
+    }
+
+    .code-block {
+      overflow-x: auto;
+      padding: 18px;
+      color: #d8e4f5;
+      background: #070b14;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      white-space: pre;
+    }
+
+    .note {
+      padding: 14px 17px;
+      color: var(--muted);
+      background: var(--surface-light);
+      border-left: 3px solid var(--accent);
+      border-radius: 5px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 4px 5px 4px 0;
+      padding: 4px 10px;
+      color: var(--accent);
+      background: var(--surface-light);
+      border-radius: 30px;
+      font-size: 0.78rem;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .step {
+      padding: 18px;
+      background: var(--surface-light);
+      border-radius: 10px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .step p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .empty-state {
+      display: none;
+      color: var(--muted);
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 35px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    @media (max-width: 850px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .workflow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .nav-inner {
+        padding: 12px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .grid,
+      .workflow {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 65px 0 45px;
+      }
+
+      .resource {
+        padding: 20px;
+      }
+
+      h1 {
+        letter-spacing: -1px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <h1>Application Support Toolkit</h1>
-  <p>By <strong>Balogun Razaq Olamilekan</strong></p>
-  <p>
-    A practical collection of resources for application support,
-    incident management, troubleshooting, and technical operations.
-  </p>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#home">RAZAQ<span>.</span>SUPPORT</a>
 
-  <div class="card">
-    <h2>Incident Management</h2>
-    <p>Document incidents, assess impact, track resolution,
-    and maintain clear communication.</p>
-  </div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#toolkit">Toolkit</a>
+        <a href="#incident-management">Incidents</a>
+        <a href="#linux">Linux</a>
+        <a href="#sql">SQL</a>
+        <a href="#runbooks">Runbooks</a>
+      </nav>
+    </div>
+  </header>
 
-  <div class="card">
-    <h2>Troubleshooting Resources</h2>
-    <p>Build a structured approach to investigating application
-    errors, service failures, logs, and connectivity issues.</p>
-  </div>
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="eyebrow">Application Support Engineering</div>
 
-  <div class="card">
-    <h2>Runbooks and Documentation</h2>
-    <p>Organize repeatable support procedures, checklists,
-    escalation steps, and recovery guides.</p>
-  </div>
+        <h1>
+          Investigate. <span>Troubleshoot.</span> Resolve.
+        </h1>
 
-  <p>
-    <a href="https://borak002.github.io/BRO-Portfolio/">
-      Visit my professional portfolio
-    </a>
-  </p>
+        <p>
+          Welcome to my practical Application Support Toolkit: a collection
+          of diagnostic commands, incident workflows, SQL examples, API
+          troubleshooting techniques, payment operations checks, and
+          repeatable technical runbooks.
+        </p>
+
+        <p>
+          Built by <strong>Balogun Razaq Olamilekan</strong> to document
+          practical approaches to maintaining reliable applications,
+          supporting users, and resolving production issues.
+        </p>
+
+        <div class="actions">
+          <a class="button button-primary" href="#toolkit">
+            Explore the Toolkit
+          </a>
+
+          <a class="button button-secondary"
+             href="https://borak002.github.io/BRO-Portfolio/"
+             target="_blank"
+             rel="noopener noreferrer">
+            View My Portfolio
+          </a>
+        </div>
+
+        <div style="margin-top:25px">
+          <span class="tag">Incident Management</span>
+          <span class="tag">Linux</span>
+          <span class="tag">SQL</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Payment Operations</span>
+          <span class="tag">Technical Documentation</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="toolkit">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Resource Library</div>
+          <h2>Explore the toolkit</h2>
+          <p>
+            Select a technical area to explore practical procedures,
+            diagnostic examples, and support workflows.
+          </p>
+        </div>
+
+        <div class="search-wrap">
+          <input
+            id="resourceSearch"
+            type="search"
+            placeholder="Search resources, e.g. Linux, SQL, API..."
+            aria-label="Search toolkit resources">
+        </div>
+
+        <div class="grid" id="resourceGrid">
+          <article class="card" data-search="incident management sla severity escalation root cause">
+            <div class="card-icon">🚨</div>
+            <h3>Incident Management</h3>
+            <p>
+              Assess impact, prioritize incidents, collect evidence,
+              coordinate escalations, and document resolution.
+            </p>
+            <a class="card-link" href="#incident-management">
+              Explore incident workflows →
+            </a>
+          </article>
+
+          <article class="card" data-search="linux server terminal logs disk cpu memory processes">
+            <div class="card-icon">🐧</div>
+            <h3>Linux Troubleshooting</h3>
+            <p>
+              Inspect services, review logs, check disk capacity,
+              examine processes, and investigate connectivity.
+            </p>
+            <a class="card-link" href="#linux">
+              Explore Linux commands →
+            </a>
+          </article>
+
+          <article class="card" data-search="sql database query transactions select count investigation">
+            <div class="card-icon">🗄️</div>
+            <h3>SQL Diagnostics</h3>
+            <p>
+              Use read-only SQL examples to investigate records,
+              transaction states, timestamps, and data inconsistencies.
+            </p>
+            <a class="card-link" href="#sql">
+              Explore SQL examples →
+            </a>
+          </article>
+
+          <article class="card" data-search="api http status codes timeout authentication integration">
+            <div class="card-icon">🔌</div>
+            <h3>API Troubleshooting</h3>
+            <p>
+              Diagnose HTTP errors, authentication failures, timeouts,
+              request problems, and upstream dependencies.
+            </p>
+            <a class="card-link" href="#api">
+              Explore API diagnostics →
+            </a>
+          </article>
+
+          <article class="card" data-search="payment operations failed transactions settlement reconciliation reversal">
+            <div class="card-icon">💳</div>
+            <h3>Payment Operations</h3>
+            <p>
+              Structure investigations into failed payments, settlement
+              mismatches, duplicate risks, and pending transactions.
+            </p>
+            <a class="card-link" href="#payments">
+              Explore payment checks →
+            </a>
+          </article>
+
+          <article class="card" data-search="runbooks documentation recovery deployment verification checklist">
+            <div class="card-icon">📘</div>
+            <h3>Runbooks & Documentation</h3>
+            <p>
+              Create repeatable troubleshooting procedures, verification
+              steps, escalation records, and recovery checklists.
+            </p>
+            <a class="card-link" href="#runbooks">
+              Explore runbooks →
+            </a>
+          </article>
+        </div>
+
+        <p class="empty-state" id="emptyState">
+          No matching resources. Try a different search term.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="incident-management">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">01 / Incident Response</div>
+          <h2>Incident management workflow</h2>
+          <p>
+            Use a consistent investigation process instead of jumping
+            straight to a possible fix.
+          </p>
+        </div>
+
+        <div class="workflow">
+          <div class="step">
+            <strong>1. Identify</strong>
+            <p>Record the symptom, start time, affected service, and evidence.</p>
+          </div>
+          <div class="step">
+            <strong>2. Assess</strong>
+            <p>Determine business impact, scope, urgency, and severity.</p>
+          </div>
+          <div class="step">
+            <strong>3. Investigate</strong>
+            <p>Correlate logs, recent changes, dependencies, and error patterns.</p>
+          </div>
+          <div class="step">
+            <strong>4. Resolve & Verify</strong>
+            <p>Apply an approved fix, test recovery, and document the outcome.</p>
+          </div>
+        </div>
+
+        <div class="resource">
+          <h3>Example: Application returns HTTP 500</h3>
+
+          <h4>Initial checks</h4>
+          <ul>
+            <li>Confirm the affected endpoint, users, and time window.</li>
+            <li>Check application and web-server logs around the failure.</li>
+            <li>Review recent deployments, configuration changes, and dependencies.</li>
+            <li>Check database connectivity and dependency health.</li>
+            <li>Escalate with timestamps, correlation IDs, and sanitized evidence.</li>
+          </ul>
+
+          <div class="note">
+            Do not assume the HTTP 500 error is caused by the database.
+            Establish the failure point from logs and correlated evidence.
+            Avoid exposing credentials, tokens, or customer data in incident reports.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="linux">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">02 / Server Diagnostics</div>
+          <h2>Linux troubleshooting</h2>
+          <p>
+            Start with visibility into system health before making
+            configuration or service changes.
+          </p>
+        </div>
+
+        <div class="resource">
+          <h3>Essential diagnostic commands</h3>
+
+          <h4>Check disk space</h4>
+          <div class="code-block">df -h</div>
+
+          <h4>Check memory usage</h4>
+          <div class="code-block">free -h</div>
+
+          <h4>Inspect CPU and running processes</h4>
+          <div class="code-block">top</div>
+
+          <h4>Check a service status</h4>
+          <div class="code-block">systemctl status SERVICE_NAME</div>
+
+          <h4>Review recent service logs</h4>
+          <div class="code-block">journalctl -u SERVICE_NAME -n 100 --no-pager</div>
+
+          <h4>Check listening TCP ports</h4>
+          <div class="code-block">ss -lntp</div>
+
+          <div class="note">
+            Replace SERVICE_NAME with the actual service name.
+            Some commands require elevated privileges. Review permissions
+            and operational procedures before running privileged commands.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sql">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">03 / Database Investigation</div>
+          <h2>SQL diagnostics</h2>
+          <p>
+            These PostgreSQL examples use illustrative table and column
+            names. Adapt them to your authorized database schema.
+          </p>
+        </div>
+
+        <div class="resource">
+          <h3>Find recent failed transactions</h3>
+
+          <div class="code-block">SELECT
+    transaction_id,
+    status,
+    created_at
+FROM transactions
+WHERE status = 'FAILED'
+  AND created_at >= CURRENT_TIMESTAMP - INTERVAL '24 hours'
+ORDER BY created_at DESC
+LIMIT 100;</div>
+
+          <h3 style="margin-top:30px">Count transactions by status</h3>
+
+          <div class="code-block">SELECT
+    status,
+    COUNT(*) AS transaction_count
+FROM transactions
+WHERE created_at >= CURRENT_TIMESTAMP - INTERVAL '24 hours'
+GROUP BY status
+ORDER BY transaction_count DESC;</div>
+
+          <h3 style="margin-top:30px">Investigation checklist</h3>
+          <ul>
+            <li>Confirm the correct environment and reporting time zone.</li>
+            <li>Check the transaction reference and current status.</li>
+            <li>Compare timestamps across relevant system logs.</li>
+            <li>Review duplicate references and related records.</li>
+            <li>Use approved access controls and read-only queries where possible.</li>
+          </ul>
+
+          <div class="note">
+            These queries are examples, not production-ready statements for
+            an unknown schema. Confirm table names, column types, indexing,
+            permissions, and data-retention requirements first.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="api">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">04 / Integration Support</div>
+          <h2>API troubleshooting</h2>
+          <p>
+            Use response codes as clues, then validate them against
+            the request, logs, and service behavior.
+          </p>
+        </div>
+
+        <div class="resource">
+          <h3>Common HTTP status codes</h3>
+
+          <ul>
+            <li><strong>400 — Bad Request:</strong> inspect request format and validation errors.</li>
+            <li><strong>401 — Unauthorized:</strong> verify authentication and token validity.</li>
+            <li><strong>403 — Forbidden:</strong> inspect permissions and access policies.</li>
+            <li><strong>404 — Not Found:</strong> confirm endpoint, route, and resource identifier.</li>
+            <li><strong>429 — Too Many Requests:</strong> inspect rate limits and retry guidance.</li>
+            <li><strong>500 — Internal Server Error:</strong> investigate server-side logs and exceptions.</li>
+            <li><strong>502 / 503 / 504:</strong> investigate upstream availability, gateway behavior, and timeouts.</li>
+          </ul>
+
+          <h3 style="margin-top:28px">Example request</h3>
+          <div class="code-block">curl -i --max-time 15 \
+  "https://api.example.com/health"</div>
+
+          <p>
+            This example inspects the response headers and body while
+            limiting the request duration. Replace the placeholder URL
+            with an authorized endpoint.
+          </p>
+
+          <div class="note">
+            Never paste API keys, bearer tokens, passwords, or sensitive
+            customer payloads into public repositories or shared screenshots.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="payments">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">05 / Transaction Support</div>
+          <h2>Payment operations</h2>
+          <p>
+            A failed payment requires investigation of the complete
+            transaction lifecycle, not just the displayed error.
+          </p>
+        </div>
+
+        <div class="resource">
+          <h3>Failed payment investigation checklist</h3>
+
+          <ul>
+            <li>Record the transaction reference, amount, currency, and timestamp.</li>
+            <li>Identify the source channel, destination institution, and response code.</li>
+            <li>Determine whether the source account was debited.</li>
+            <li>Check the beneficiary or settlement status.</li>
+            <li>Correlate provider responses with internal application logs.</li>
+            <li>Confirm whether a reversal, settlement, or reconciliation entry exists.</li>
+            <li>Obtain the required authorization before retrying or reprocessing.</li>
+            <li>Verify the final state and communicate the outcome to stakeholders.</li>
+          </ul>
+
+          <div class="note">
+            Before retrying a payment, verify its current state and the
+            system's idempotency controls. A timeout does not prove that
+            the original transaction failed. Unverified retries can create
+            duplicate payment risks.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="runbooks">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">06 / Operational Excellence</div>
+          <h2>Runbooks & documentation</h2>
+          <p>
+            Document what was observed, what was checked, what changed,
+            and how recovery was verified.
+          </p>
+        </div>
+
+        <div class="resource">
+          <h3>Reusable incident report template</h3>
+
+          <div class="code-block">INCIDENT TITLE:
+DATE / TIME:
+AFFECTED SERVICE:
+BUSINESS IMPACT:
+SEVERITY:
+SYMPTOMS:
+ERROR MESSAGE / CORRELATION ID:
+
+INVESTIGATION:
+1.
+2.
+3.
+
+ROOT CAUSE:
+RESOLUTION:
+VALIDATION PERFORMED:
+CURRENT STATUS:
+PREVENTIVE ACTIONS:
+OWNER / ESCALATION TEAM:</div>
+
+          <h3 style="margin-top:30px">Recommended runbook structure</h3>
+          <ol>
+            <li>Purpose and scope</li>
+            <li>Prerequisites and access requirements</li>
+            <li>Symptoms and impact indicators</li>
+            <li>Diagnostic commands and expected results</li>
+            <li>Decision points and escalation criteria</li>
+            <li>Approved remediation steps</li>
+            <li>Post-resolution verification</li>
+            <li>Rollback plan and lessons learned</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="resource">
+          <div class="eyebrow">About This Project</div>
+          <h2>Practical support. Clear documentation.</h2>
+
+          <p>
+            This toolkit is a growing technical knowledge base focused on
+            incident response, application reliability, payment operations,
+            and customer-impacting production issues.
+          </p>
+
+          <p>
+            Its examples are educational templates. They should be adapted
+            and validated before use in any production environment.
+          </p>
+
+          <div class="actions">
+            <a class="button button-primary"
+               href="https://borak002.github.io/BRO-Portfolio/"
+               target="_blank"
+               rel="noopener noreferrer">
+              Visit Professional Portfolio
+            </a>
+
+            <a class="button button-secondary"
+               href="https://github.com/Borak002/application-support-toolkit"
+               target="_blank"
+               rel="noopener noreferrer">
+              View Source on GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Balogun Razaq Olamilekan</span>
+      <span>Application Support · Technical Operations · Customer Experience</span>
+    </div>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById("resourceSearch");
+    const cards = document.querySelectorAll("#resourceGrid .card");
+    const emptyState = document.getElementById("emptyState");
+
+    searchInput.addEventListener("input", function () {
+      const query = this.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach(function (card) {
+        const searchableText =
+          (card.innerText + " " + card.dataset.search).toLowerCase();
+
+        const matches = searchableText.includes(query);
+        card.style.display = matches ? "flex" : "none";
+
+        if (matches) visibleCount++;
+      });
+
+      emptyState.style.display = visibleCount ? "none" : "block";
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
 </body>
 </html>
