@@ -1,19 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Explore practical application support resources, incident management workflows, Linux commands, SQL diagnostics, API troubleshooting, payment operations, and technical runbooks by Balogun Razaq Olamilekan.">
-
+  <title>Application Support Toolkit | Razaq Balogun</title>
+  <meta name="description" content="Practical application support resources: incident management workflows, Linux commands, SQL diagnostics, API troubleshooting, payment operations checks, and technical runbooks by Balogun Razaq Olamilekan.">
   <meta name="author" content="Balogun Razaq Olamilekan">
   <meta name="theme-color" content="#0b1020">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://borak002.github.io/application-support-toolkit/">
 
-  <title>Application Support Toolkit | Razaq Balogun</title>
+  <!-- Social sharing previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Application Support Toolkit | Razaq Balogun">
+  <meta property="og:description" content="Incident workflows, Linux commands, SQL diagnostics, API troubleshooting, payment checks, and runbooks.">
+  <meta property="og:url" content="https://borak002.github.io/application-support-toolkit/">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Emoji favicon: no extra file request -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛠️%3C/text%3E%3C/svg%3E">
 
   <style>
+    /* ==========================================================
+       1. DESIGN TOKENS
+       ========================================================== */
     :root {
+      /* Colour */
       --bg: #0b1020;
       --surface: #111a2e;
       --surface-light: #17233a;
@@ -21,24 +34,41 @@
       --muted: #a6b2c5;
       --accent: #e3bd7a;
       --border: #29364d;
-      --success: #75d6a2;
+      --code-bg: #070b14;
+      --code-text: #d8e4f5;
+      --on-accent: #111827;
+
+      /* Shape and spacing */
       --radius: 16px;
+      --radius-sm: 10px;
+      --space-section: 58px;
+      --nav-height: 70px;
+
+      /* Type */
+      --font-body: Arial, Helvetica, sans-serif;
+      --font-mono: Consolas, "Courier New", monospace;
     }
 
-    * {
+    /* ==========================================================
+       2. BASE / RESET
+       ========================================================== */
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 90px;
+      scroll-padding-top: calc(var(--nav-height) + 20px);
+      color-scheme: dark;
     }
 
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: var(--font-body);
       line-height: 1.7;
     }
 
@@ -51,15 +81,52 @@
       text-decoration: underline;
     }
 
-    button, input {
+    button,
+    input {
       font: inherit;
     }
 
+    /* Visible keyboard focus everywhere */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Skip link for keyboard and screen-reader users */
+    .skip-link {
+      position: absolute;
+      top: -60px;
+      left: 12px;
+      z-index: 20;
+      padding: 10px 16px;
+      background: var(--accent);
+      color: var(--on-accent);
+      border-radius: 0 0 8px 8px;
+      font-weight: 700;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ==========================================================
+       3. LAYOUT HELPERS
+       ========================================================== */
     .container {
       width: min(1120px, 90%);
       margin: 0 auto;
     }
 
+    .section {
+      padding: var(--space-section) 0;
+    }
+
+    .mt-sm { margin-top: 25px; }
+    .mt-md { margin-top: 30px; }
+
+    /* ==========================================================
+       4. NAVIGATION
+       ========================================================== */
     .navbar {
       position: sticky;
       top: 0;
@@ -70,7 +137,7 @@
     }
 
     .nav-inner {
-      min-height: 70px;
+      min-height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -90,7 +157,7 @@
     .nav-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 8px 20px;
       font-size: 0.9rem;
     }
 
@@ -102,10 +169,12 @@
       color: var(--accent);
     }
 
+    /* ==========================================================
+       5. HERO
+       ========================================================== */
     .hero {
       padding: 90px 0 70px;
-      background:
-        radial-gradient(ellipse at top right, #23304a 0%, transparent 55%);
+      background: radial-gradient(ellipse at top right, #23304a 0%, transparent 55%);
     }
 
     .eyebrow {
@@ -134,6 +203,9 @@
       font-size: 1.08rem;
     }
 
+    /* ==========================================================
+       6. BUTTONS AND TAGS
+       ========================================================== */
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -147,7 +219,7 @@
       border: 1px solid var(--accent);
       border-radius: 9px;
       font-weight: 700;
-      transition: transform 0.2s, background 0.2s;
+      transition: transform 0.2s;
     }
 
     .button:hover {
@@ -157,17 +229,26 @@
 
     .button-primary {
       background: var(--accent);
-      color: #111827;
+      color: var(--on-accent);
     }
 
     .button-secondary {
       color: var(--accent);
     }
 
-    .section {
-      padding: 58px 0;
+    .tag {
+      display: inline-block;
+      margin: 4px 5px 4px 0;
+      padding: 4px 10px;
+      color: var(--accent);
+      background: var(--surface-light);
+      border-radius: 30px;
+      font-size: 0.78rem;
     }
 
+    /* ==========================================================
+       7. SECTION HEADINGS
+       ========================================================== */
     .section-heading {
       margin-bottom: 26px;
     }
@@ -182,6 +263,9 @@
       color: var(--muted);
     }
 
+    /* ==========================================================
+       8. SEARCH AND CARD GRID
+       ========================================================== */
     .search-wrap {
       margin: 28px 0;
     }
@@ -192,12 +276,12 @@
       color: var(--text);
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      outline: none;
+      border-radius: var(--radius-sm);
     }
 
     .search-wrap input:focus {
       border-color: var(--accent);
+      outline-offset: 2px;
     }
 
     .grid {
@@ -214,6 +298,10 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card[hidden] {
+      display: none;
     }
 
     .card:hover {
@@ -242,6 +330,13 @@
       font-weight: 700;
     }
 
+    .empty-state {
+      color: var(--muted);
+    }
+
+    /* ==========================================================
+       9. RESOURCE PANELS
+       ========================================================== */
     .resource {
       margin-top: 24px;
       padding: 28px;
@@ -253,6 +348,10 @@
     .resource h3 {
       margin-top: 0;
       color: var(--accent);
+    }
+
+    .resource h3.mt-md {
+      margin-top: 30px;
     }
 
     .resource h4 {
@@ -268,18 +367,6 @@
       margin-bottom: 7px;
     }
 
-    .code-block {
-      overflow-x: auto;
-      padding: 18px;
-      color: #d8e4f5;
-      background: #070b14;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-family: Consolas, "Courier New", monospace;
-      font-size: 0.9rem;
-      white-space: pre;
-    }
-
     .note {
       padding: 14px 17px;
       color: var(--muted);
@@ -288,27 +375,65 @@
       border-radius: 5px;
     }
 
-    .tag {
-      display: inline-block;
-      margin: 4px 5px 4px 0;
-      padding: 4px 10px;
-      color: var(--accent);
-      background: var(--surface-light);
-      border-radius: 30px;
-      font-size: 0.78rem;
+    /* ==========================================================
+       10. CODE BLOCKS (with copy button)
+       ========================================================== */
+    .code-wrap {
+      position: relative;
     }
 
+    .code-block {
+      margin: 0;
+      overflow-x: auto;
+      padding: 18px;
+      padding-right: 80px; /* room for the copy button */
+      color: var(--code-text);
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .code-block code {
+      font-family: inherit;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 10px;
+      color: var(--muted);
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ==========================================================
+       11. INCIDENT WORKFLOW STEPS
+       ========================================================== */
     .workflow {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
       margin-top: 24px;
+      padding: 0;
+      list-style: none;
     }
 
     .step {
       padding: 18px;
       background: var(--surface-light);
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
     }
 
     .step strong {
@@ -319,14 +444,13 @@
 
     .step p {
       margin: 0;
+      color: var(--muted);
       font-size: 0.9rem;
     }
 
-    .empty-state {
-      display: none;
-      color: var(--muted);
-    }
-
+    /* ==========================================================
+       12. FOOTER
+       ========================================================== */
     .footer {
       margin-top: 50px;
       padding: 35px 0;
@@ -343,11 +467,11 @@
       gap: 15px;
     }
 
+    /* ==========================================================
+       13. RESPONSIVE
+       ========================================================== */
     @media (max-width: 850px) {
-      .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
+      .grid,
       .workflow {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -356,6 +480,7 @@
         padding: 12px 0;
         align-items: flex-start;
         flex-direction: column;
+        gap: 8px;
       }
     }
 
@@ -377,10 +502,27 @@
         letter-spacing: -1px;
       }
     }
+
+    /* ==========================================================
+       14. ACCESSIBILITY: REDUCED MOTION
+       ========================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
   <header class="navbar">
     <div class="container nav-inner">
       <a class="brand" href="#home">RAZAQ<span>.</span>SUPPORT</a>
@@ -388,49 +530,49 @@
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#toolkit">Toolkit</a>
         <a href="#incident-management">Incidents</a>
+        <a href="#case-study-500">Case Study</a>
         <a href="#linux">Linux</a>
         <a href="#sql">SQL</a>
+        <a href="#api">API</a>
+        <a href="#payments">Payments</a>
         <a href="#runbooks">Runbooks</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main">
+
+    <!-- ========== HERO ========== -->
     <section class="hero" id="home">
       <div class="container">
         <div class="eyebrow">Application Support Engineering</div>
 
-        <h1>
-          Investigate. <span>Troubleshoot.</span> Resolve.
-        </h1>
+        <h1>Investigate. <span>Troubleshoot.</span> Resolve.</h1>
 
         <p>
-          Welcome to my practical Application Support Toolkit: a collection
-          of diagnostic commands, incident workflows, SQL examples, API
-          troubleshooting techniques, payment operations checks, and
-          repeatable technical runbooks.
+          A practical Application Support Toolkit: diagnostic commands,
+          incident workflows, SQL examples, API troubleshooting techniques,
+          payment operations checks, and repeatable technical runbooks.
         </p>
 
         <p>
           Built by <strong>Balogun Razaq Olamilekan</strong> to document
-          practical approaches to maintaining reliable applications,
+          practical approaches to keeping applications reliable,
           supporting users, and resolving production issues.
         </p>
 
         <div class="actions">
-          <a class="button button-primary" href="#toolkit">
-            Explore the Toolkit
-          </a>
+          <a class="button button-primary" href="#toolkit">Explore the toolkit</a>
 
           <a class="button button-secondary"
              href="https://borak002.github.io/BRO-Portfolio/"
              target="_blank"
              rel="noopener noreferrer">
-            View My Portfolio
+            View my portfolio
           </a>
         </div>
 
-        <div style="margin-top:25px">
+        <div class="mt-sm">
           <span class="tag">Incident Management</span>
           <span class="tag">Linux</span>
           <span class="tag">SQL</span>
@@ -441,13 +583,14 @@
       </div>
     </section>
 
-    <section class="section" id="toolkit">
+    <!-- ========== TOOLKIT INDEX (searchable) ========== -->
+    <section class="section" id="toolkit" aria-labelledby="toolkit-title">
       <div class="container">
         <div class="section-heading">
           <div class="eyebrow">Resource Library</div>
-          <h2>Explore the toolkit</h2>
+          <h2 id="toolkit-title">Explore the toolkit</h2>
           <p>
-            Select a technical area to explore practical procedures,
+            Pick a technical area to see practical procedures,
             diagnostic examples, and support workflows.
           </p>
         </div>
@@ -457,143 +600,124 @@
             id="resourceSearch"
             type="search"
             placeholder="Search resources, e.g. Linux, SQL, API..."
-            aria-label="Search toolkit resources">
+            aria-label="Search toolkit resources"
+            aria-controls="resourceGrid"
+            autocomplete="off">
         </div>
 
-       
-<div class="grid" id="resourceGrid">
+        <div class="grid" id="resourceGrid">
+          <article class="card" data-search="incident management sla severity escalation root cause">
+            <div class="card-icon" aria-hidden="true">🚨</div>
+            <h3>Incident Management</h3>
+            <p>
+              Assess impact, prioritize incidents, collect evidence,
+              coordinate escalations, and document the resolution.
+            </p>
+            <a class="card-link" href="#incident-management">Explore incident workflows →</a>
+          </article>
 
-  <article class="card" data-search="incident management sla severity escalation root cause">
-    <div class="card-icon">🚨</div>
-    <h3>Incident Management</h3>
-    <p>
-      Assess impact, prioritize incidents, collect evidence,
-      coordinate escalations, and document resolution.
-    </p>
-    <a class="card-link" href="#incident-management">
-      Explore incident workflows →
-    </a>
-  </article>
+          <article class="card" data-search="case study production incident http 500 database logs root cause deployment">
+            <div class="card-icon" aria-hidden="true">🔎</div>
+            <h3>Production Incident Case Study</h3>
+            <p>
+              Investigate an HTTP 500 incident after deployment,
+              correlate logs, identify a configuration fault,
+              and validate service recovery.
+            </p>
+            <a class="card-link" href="#case-study-500">Read the case study →</a>
+          </article>
 
-  <article class="card" data-search="case study production incident http 500 database logs root cause deployment">
-    <div class="card-icon">🔎</div>
-    <h3>Production Incident Case Study</h3>
-    <p>
-      Investigate an HTTP 500 incident after deployment,
-      correlate logs, identify a configuration fault,
-      and validate service recovery.
-    </p>
-    <a class="card-link" href="#case-study-500">
-      Read the case study →
-    </a>
-  </article>
-
-  <article class="card" data-search="linux server terminal logs disk cpu memory processes">
-    <div class="card-icon">🐧</div>
-    <h3>Linux Troubleshooting</h3>
-    <p>
-      Inspect services, review logs, check disk capacity,
-      examine processes, and investigate connectivity.
-    </p>
-    <a class="card-link" href="#linux">
-      Explore Linux commands →
-    </a>
-  </article>
-
-  <!-- Keep the remaining existing resource cards here -->
-
-</div>
-              Explore Linux commands →
-            </a>
+          <article class="card" data-search="linux server terminal logs disk cpu memory processes">
+            <div class="card-icon" aria-hidden="true">🐧</div>
+            <h3>Linux Troubleshooting</h3>
+            <p>
+              Inspect services, review logs, check disk capacity,
+              examine processes, and investigate connectivity.
+            </p>
+            <a class="card-link" href="#linux">Explore Linux commands →</a>
           </article>
 
           <article class="card" data-search="sql database query transactions select count investigation">
-            <div class="card-icon">🗄️</div>
+            <div class="card-icon" aria-hidden="true">🗄️</div>
             <h3>SQL Diagnostics</h3>
             <p>
               Use read-only SQL examples to investigate records,
               transaction states, timestamps, and data inconsistencies.
             </p>
-            <a class="card-link" href="#sql">
-              Explore SQL examples →
-            </a>
+            <a class="card-link" href="#sql">Explore SQL examples →</a>
           </article>
 
           <article class="card" data-search="api http status codes timeout authentication integration">
-            <div class="card-icon">🔌</div>
+            <div class="card-icon" aria-hidden="true">🔌</div>
             <h3>API Troubleshooting</h3>
             <p>
               Diagnose HTTP errors, authentication failures, timeouts,
               request problems, and upstream dependencies.
             </p>
-            <a class="card-link" href="#api">
-              Explore API diagnostics →
-            </a>
+            <a class="card-link" href="#api">Explore API diagnostics →</a>
           </article>
 
           <article class="card" data-search="payment operations failed transactions settlement reconciliation reversal">
-            <div class="card-icon">💳</div>
+            <div class="card-icon" aria-hidden="true">💳</div>
             <h3>Payment Operations</h3>
             <p>
               Structure investigations into failed payments, settlement
               mismatches, duplicate risks, and pending transactions.
             </p>
-            <a class="card-link" href="#payments">
-              Explore payment checks →
-            </a>
+            <a class="card-link" href="#payments">Explore payment checks →</a>
           </article>
 
           <article class="card" data-search="runbooks documentation recovery deployment verification checklist">
-            <div class="card-icon">📘</div>
-            <h3>Runbooks & Documentation</h3>
+            <div class="card-icon" aria-hidden="true">📘</div>
+            <h3>Runbooks &amp; Documentation</h3>
             <p>
               Create repeatable troubleshooting procedures, verification
               steps, escalation records, and recovery checklists.
             </p>
-            <a class="card-link" href="#runbooks">
-              Explore runbooks →
-            </a>
+            <a class="card-link" href="#runbooks">Explore runbooks →</a>
           </article>
         </div>
 
-        <p class="empty-state" id="emptyState">
+        <!-- role="status" announces the change to screen readers -->
+        <p class="empty-state" id="emptyState" role="status" hidden>
           No matching resources. Try a different search term.
         </p>
       </div>
     </section>
 
-    <section class="section" id="incident-management">
+    <!-- ========== 01 INCIDENT MANAGEMENT ========== -->
+    <section class="section" id="incident-management" aria-labelledby="incident-title">
       <div class="container">
         <div class="section-heading">
           <div class="eyebrow">01 / Incident Response</div>
-          <h2>Incident management workflow</h2>
+          <h2 id="incident-title">Incident management workflow</h2>
           <p>
-            Use a consistent investigation process instead of jumping
+            Follow a consistent investigation process instead of jumping
             straight to a possible fix.
           </p>
         </div>
 
-        <div class="workflow">
-          <div class="step">
+        <ol class="workflow">
+          <li class="step">
             <strong>1. Identify</strong>
             <p>Record the symptom, start time, affected service, and evidence.</p>
-          </div>
-          <div class="step">
+          </li>
+          <li class="step">
             <strong>2. Assess</strong>
             <p>Determine business impact, scope, urgency, and severity.</p>
-          </div>
-          <div class="step">
+          </li>
+          <li class="step">
             <strong>3. Investigate</strong>
             <p>Correlate logs, recent changes, dependencies, and error patterns.</p>
-          </div>
-          <div class="step">
-            <strong>4. Resolve & Verify</strong>
+          </li>
+          <li class="step">
+            <strong>4. Resolve &amp; verify</strong>
             <p>Apply an approved fix, test recovery, and document the outcome.</p>
-          </div>
-        </div>
+          </li>
+        </ol>
 
         <div class="resource">
-          <h3>Example: Application returns HTTP 500</h3>
+          <h3>Example: application returns HTTP 500</h3>
 
           <h4>Initial checks</h4>
           <ul>
@@ -612,120 +736,122 @@
         </div>
       </div>
     </section>
-    
-    <section class="section" id="linux">
-<section class="section" id="case-study-500">
-  <div class="container">
-    <div class="section-heading">
-      <div class="eyebrow">Case Study 01 / Production Support</div>
-      <h2>Resolving an HTTP 500 incident</h2>
-      <p>
-        A simulated investigation showing how an application
-        support engineer moves from an initial symptom to
-        an evidence-based resolution.
-      </p>
-    </div>
 
-    <div class="resource">
-      <h3>Incident summary</h3>
-      <p>
-        Following a routine application deployment, users begin
-        receiving HTTP 500 responses from an API endpoint.
-        The application process is running, but requests that
-        require database access are failing.
-      </p>
+    <!-- ========== CASE STUDY: HTTP 500 ========== -->
+    <section class="section" id="case-study-500" aria-labelledby="case-study-title">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Case Study 01 / Production Support</div>
+          <h2 id="case-study-title">Resolving an HTTP 500 incident</h2>
+          <p>
+            A simulated investigation showing how an application
+            support engineer moves from an initial symptom to
+            an evidence-based resolution.
+          </p>
+        </div>
 
-      <h4>Business impact</h4>
-      <ul>
-        <li>Users cannot complete the affected operations.</li>
-        <li>Support tickets and failure rates increase.</li>
-        <li>Other endpoints must be checked to establish the scope.</li>
-      </ul>
+        <div class="resource">
+          <h3>Incident summary</h3>
+          <p>
+            Following a routine application deployment, users begin
+            receiving HTTP 500 responses from an API endpoint.
+            The application process is running, but requests that
+            require database access are failing.
+          </p>
 
-      <h3>Investigation timeline</h3>
-      <ol>
-        <li>
-          <strong>Detect:</strong>
-          Confirm the first reported failure, affected endpoint,
-          timestamps, error rate, and impacted users.
-        </li>
-        <li>
-          <strong>Assess:</strong>
-          Check whether the incident is isolated to one endpoint
-          or affects multiple application functions.
-        </li>
-        <li>
-          <strong>Investigate:</strong>
-          Correlate application logs with the deployment time
-          and inspect database connectivity and configuration.
-        </li>
-        <li>
-          <strong>Identify:</strong>
-          The illustrative evidence indicates that the new
-          deployment references an incorrect database host.
-        </li>
-        <li>
-          <strong>Resolve:</strong>
-          Correct the configuration through the approved change
-          process and restart or reload the service if required.
-        </li>
-        <li>
-          <strong>Verify:</strong>
-          Confirm successful database connections, successful
-          API responses, and recovery of the affected operation.
-        </li>
-      </ol>
+          <h4>Business impact</h4>
+          <ul>
+            <li>Users cannot complete the affected operations.</li>
+            <li>Support tickets and failure rates increase.</li>
+            <li>Other endpoints must be checked to establish the scope.</li>
+          </ul>
 
-      <h3>Example log evidence</h3>
-      <div class="code-block">2026-10-08 09:14:22 ERROR Database connection failed
+          <h3 class="mt-md">Investigation timeline</h3>
+          <ol>
+            <li>
+              <strong>Detect:</strong>
+              Confirm the first reported failure, affected endpoint,
+              timestamps, error rate, and impacted users.
+            </li>
+            <li>
+              <strong>Assess:</strong>
+              Check whether the incident is isolated to one endpoint
+              or affects multiple application functions.
+            </li>
+            <li>
+              <strong>Investigate:</strong>
+              Correlate application logs with the deployment time
+              and inspect database connectivity and configuration.
+            </li>
+            <li>
+              <strong>Identify:</strong>
+              The illustrative evidence indicates that the new
+              deployment references an incorrect database host.
+            </li>
+            <li>
+              <strong>Resolve:</strong>
+              Correct the configuration through the approved change
+              process and restart or reload the service if required.
+            </li>
+            <li>
+              <strong>Verify:</strong>
+              Confirm successful database connections, successful
+              API responses, and recovery of the affected operation.
+            </li>
+          </ol>
+
+          <h3 class="mt-md">Example log evidence</h3>
+          <div class="code-wrap"><pre class="code-block"><code>2026-10-08 09:14:22 ERROR Database connection failed
 2026-10-08 09:14:22 ERROR Host=db-primary.invalid
 2026-10-08 09:14:22 ERROR RequestId=demo-7f31
-2026-10-08 09:14:23 INFO  HTTP POST /api/orders -> 500</div>
+2026-10-08 09:14:23 INFO  HTTP POST /api/orders -&gt; 500</code></pre></div>
 
-      <p>
-        These log entries are fictional examples for demonstration.
-        In a real incident, correlate the request ID and timestamps
-        with the actual application and database logs.
-      </p>
+          <p>
+            These log entries are fictional examples for demonstration.
+            In a real incident, correlate the request ID and timestamps
+            with the actual application and database logs.
+          </p>
 
-      <h3>Root cause</h3>
-      <p>
-        In this simulated scenario, a database host configuration
-        was incorrect after deployment. The API could not establish
-        the required database connection, and affected requests
-        returned HTTP 500.
-      </p>
+          <h3 class="mt-md">Root cause</h3>
+          <p>
+            In this simulated scenario, a database host configuration
+            was incorrect after deployment. The API could not establish
+            the required database connection, and affected requests
+            returned HTTP 500.
+          </p>
 
-      <h3>Corrective actions</h3>
-      <ul>
-        <li>Restore the correct database endpoint using approved configuration.</li>
-        <li>Verify network access, credentials, and database availability.</li>
-        <li>Test the affected API operation using an authorized test request.</li>
-        <li>Monitor error rates and application logs after recovery.</li>
-        <li>Communicate service status and document the incident.</li>
-      </ul>
+          <h3 class="mt-md">Corrective actions</h3>
+          <ul>
+            <li>Restore the correct database endpoint using approved configuration.</li>
+            <li>Verify network access, credentials, and database availability.</li>
+            <li>Test the affected API operation using an authorized test request.</li>
+            <li>Monitor error rates and application logs after recovery.</li>
+            <li>Communicate service status and document the incident.</li>
+          </ul>
 
-      <h3>Preventive actions</h3>
-      <ul>
-        <li>Validate required configuration before deployment.</li>
-        <li>Add database connectivity checks to deployment verification.</li>
-        <li>Alert on abnormal HTTP 500 rates and database connection failures.</li>
-        <li>Document configuration rollback and recovery procedures.</li>
-      </ul>
+          <h3 class="mt-md">Preventive actions</h3>
+          <ul>
+            <li>Validate required configuration before deployment.</li>
+            <li>Add database connectivity checks to deployment verification.</li>
+            <li>Alert on abnormal HTTP 500 rates and database connection failures.</li>
+            <li>Document configuration rollback and recovery procedures.</li>
+          </ul>
 
-      <div class="note">
-        Key lesson: an HTTP 500 response identifies a server-side
-        failure, not its root cause. The diagnosis must be supported
-        by logs, configuration checks, and reproducible evidence.
+          <div class="note">
+            Key lesson: an HTTP 500 response identifies a server-side
+            failure, not its root cause. The diagnosis must be supported
+            by logs, configuration checks, and reproducible evidence.
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
+    <!-- ========== 02 LINUX ========== -->
+    <section class="section" id="linux" aria-labelledby="linux-title">
       <div class="container">
         <div class="section-heading">
           <div class="eyebrow">02 / Server Diagnostics</div>
-          <h2>Linux troubleshooting</h2>
+          <h2 id="linux-title">Linux troubleshooting</h2>
           <p>
             Start with visibility into system health before making
             configuration or service changes.
@@ -736,25 +862,25 @@
           <h3>Essential diagnostic commands</h3>
 
           <h4>Check disk space</h4>
-          <div class="code-block">df -h</div>
+          <div class="code-wrap"><pre class="code-block"><code>df -h</code></pre></div>
 
           <h4>Check memory usage</h4>
-          <div class="code-block">free -h</div>
+          <div class="code-wrap"><pre class="code-block"><code>free -h</code></pre></div>
 
           <h4>Inspect CPU and running processes</h4>
-          <div class="code-block">top</div>
+          <div class="code-wrap"><pre class="code-block"><code>top</code></pre></div>
 
           <h4>Check a service status</h4>
-          <div class="code-block">systemctl status SERVICE_NAME</div>
+          <div class="code-wrap"><pre class="code-block"><code>systemctl status SERVICE_NAME</code></pre></div>
 
           <h4>Review recent service logs</h4>
-          <div class="code-block">journalctl -u SERVICE_NAME -n 100 --no-pager</div>
+          <div class="code-wrap"><pre class="code-block"><code>journalctl -u SERVICE_NAME -n 100 --no-pager</code></pre></div>
 
           <h4>Check listening TCP ports</h4>
-          <div class="code-block">ss -lntp</div>
+          <div class="code-wrap"><pre class="code-block"><code>ss -lntp</code></pre></div>
 
-          <div class="note">
-            Replace SERVICE_NAME with the actual service name.
+          <div class="note mt-sm">
+            Replace <code>SERVICE_NAME</code> with the actual service name.
             Some commands require elevated privileges. Review permissions
             and operational procedures before running privileged commands.
           </div>
@@ -762,11 +888,12 @@
       </div>
     </section>
 
-    <section class="section" id="sql">
+    <!-- ========== 03 SQL ========== -->
+    <section class="section" id="sql" aria-labelledby="sql-title">
       <div class="container">
         <div class="section-heading">
           <div class="eyebrow">03 / Database Investigation</div>
-          <h2>SQL diagnostics</h2>
+          <h2 id="sql-title">SQL diagnostics</h2>
           <p>
             These PostgreSQL examples use illustrative table and column
             names. Adapt them to your authorized database schema.
@@ -776,27 +903,27 @@
         <div class="resource">
           <h3>Find recent failed transactions</h3>
 
-          <div class="code-block">SELECT
+          <div class="code-wrap"><pre class="code-block"><code>SELECT
     transaction_id,
     status,
     created_at
 FROM transactions
 WHERE status = 'FAILED'
-  AND created_at >= CURRENT_TIMESTAMP - INTERVAL '24 hours'
+  AND created_at &gt;= CURRENT_TIMESTAMP - INTERVAL '24 hours'
 ORDER BY created_at DESC
-LIMIT 100;</div>
+LIMIT 100;</code></pre></div>
 
-          <h3 style="margin-top:30px">Count transactions by status</h3>
+          <h3 class="mt-md">Count transactions by status</h3>
 
-          <div class="code-block">SELECT
+          <div class="code-wrap"><pre class="code-block"><code>SELECT
     status,
     COUNT(*) AS transaction_count
 FROM transactions
-WHERE created_at >= CURRENT_TIMESTAMP - INTERVAL '24 hours'
+WHERE created_at &gt;= CURRENT_TIMESTAMP - INTERVAL '24 hours'
 GROUP BY status
-ORDER BY transaction_count DESC;</div>
+ORDER BY transaction_count DESC;</code></pre></div>
 
-          <h3 style="margin-top:30px">Investigation checklist</h3>
+          <h3 class="mt-md">Investigation checklist</h3>
           <ul>
             <li>Confirm the correct environment and reporting time zone.</li>
             <li>Check the transaction reference and current status.</li>
@@ -814,13 +941,14 @@ ORDER BY transaction_count DESC;</div>
       </div>
     </section>
 
-    <section class="section" id="api">
+    <!-- ========== 04 API ========== -->
+    <section class="section" id="api" aria-labelledby="api-title">
       <div class="container">
         <div class="section-heading">
           <div class="eyebrow">04 / Integration Support</div>
-          <h2>API troubleshooting</h2>
+          <h2 id="api-title">API troubleshooting</h2>
           <p>
-            Use response codes as clues, then validate them against
+            Treat response codes as clues, then validate them against
             the request, logs, and service behavior.
           </p>
         </div>
@@ -829,23 +957,23 @@ ORDER BY transaction_count DESC;</div>
           <h3>Common HTTP status codes</h3>
 
           <ul>
-            <li><strong>400 — Bad Request:</strong> inspect request format and validation errors.</li>
-            <li><strong>401 — Unauthorized:</strong> verify authentication and token validity.</li>
-            <li><strong>403 — Forbidden:</strong> inspect permissions and access policies.</li>
-            <li><strong>404 — Not Found:</strong> confirm endpoint, route, and resource identifier.</li>
-            <li><strong>429 — Too Many Requests:</strong> inspect rate limits and retry guidance.</li>
-            <li><strong>500 — Internal Server Error:</strong> investigate server-side logs and exceptions.</li>
+            <li><strong>400 Bad Request:</strong> inspect request format and validation errors.</li>
+            <li><strong>401 Unauthorized:</strong> verify authentication and token validity.</li>
+            <li><strong>403 Forbidden:</strong> inspect permissions and access policies.</li>
+            <li><strong>404 Not Found:</strong> confirm endpoint, route, and resource identifier.</li>
+            <li><strong>429 Too Many Requests:</strong> inspect rate limits and retry guidance.</li>
+            <li><strong>500 Internal Server Error:</strong> investigate server-side logs and exceptions.</li>
             <li><strong>502 / 503 / 504:</strong> investigate upstream availability, gateway behavior, and timeouts.</li>
           </ul>
 
-          <h3 style="margin-top:28px">Example request</h3>
-          <div class="code-block">curl -i --max-time 15 \
-  "https://api.example.com/health"</div>
+          <h3 class="mt-md">Example request</h3>
+          <div class="code-wrap"><pre class="code-block"><code>curl -i --max-time 15 \
+  "https://api.example.com/health"</code></pre></div>
 
           <p>
-            This example inspects the response headers and body while
-            limiting the request duration. Replace the placeholder URL
-            with an authorized endpoint.
+            This inspects the response headers and body while limiting
+            the request duration. Replace the placeholder URL with an
+            authorized endpoint.
           </p>
 
           <div class="note">
@@ -856,11 +984,12 @@ ORDER BY transaction_count DESC;</div>
       </div>
     </section>
 
-    <section class="section" id="payments">
+    <!-- ========== 05 PAYMENTS ========== -->
+    <section class="section" id="payments" aria-labelledby="payments-title">
       <div class="container">
         <div class="section-heading">
           <div class="eyebrow">05 / Transaction Support</div>
-          <h2>Payment operations</h2>
+          <h2 id="payments-title">Payment operations</h2>
           <p>
             A failed payment requires investigation of the complete
             transaction lifecycle, not just the displayed error.
@@ -891,11 +1020,12 @@ ORDER BY transaction_count DESC;</div>
       </div>
     </section>
 
-    <section class="section" id="runbooks">
+    <!-- ========== 06 RUNBOOKS ========== -->
+    <section class="section" id="runbooks" aria-labelledby="runbooks-title">
       <div class="container">
         <div class="section-heading">
           <div class="eyebrow">06 / Operational Excellence</div>
-          <h2>Runbooks & documentation</h2>
+          <h2 id="runbooks-title">Runbooks &amp; documentation</h2>
           <p>
             Document what was observed, what was checked, what changed,
             and how recovery was verified.
@@ -905,7 +1035,7 @@ ORDER BY transaction_count DESC;</div>
         <div class="resource">
           <h3>Reusable incident report template</h3>
 
-          <div class="code-block">INCIDENT TITLE:
+          <div class="code-wrap"><pre class="code-block"><code>INCIDENT TITLE:
 DATE / TIME:
 AFFECTED SERVICE:
 BUSINESS IMPACT:
@@ -923,9 +1053,9 @@ RESOLUTION:
 VALIDATION PERFORMED:
 CURRENT STATUS:
 PREVENTIVE ACTIONS:
-OWNER / ESCALATION TEAM:</div>
+OWNER / ESCALATION TEAM:</code></pre></div>
 
-          <h3 style="margin-top:30px">Recommended runbook structure</h3>
+          <h3 class="mt-md">Recommended runbook structure</h3>
           <ol>
             <li>Purpose and scope</li>
             <li>Prerequisites and access requirements</li>
@@ -940,11 +1070,12 @@ OWNER / ESCALATION TEAM:</div>
       </div>
     </section>
 
-    <section class="section">
+    <!-- ========== ABOUT ========== -->
+    <section class="section" aria-labelledby="about-title">
       <div class="container">
         <div class="resource">
-          <div class="eyebrow">About This Project</div>
-          <h2>Practical support. Clear documentation.</h2>
+          <div class="eyebrow">About this project</div>
+          <h2 id="about-title">Practical support. Clear documentation.</h2>
 
           <p>
             This toolkit is a growing technical knowledge base focused on
@@ -953,8 +1084,8 @@ OWNER / ESCALATION TEAM:</div>
           </p>
 
           <p>
-            Its examples are educational templates. They should be adapted
-            and validated before use in any production environment.
+            The examples are educational templates. Adapt and validate
+            them before using them in any production environment.
           </p>
 
           <div class="actions">
@@ -962,14 +1093,14 @@ OWNER / ESCALATION TEAM:</div>
                href="https://borak002.github.io/BRO-Portfolio/"
                target="_blank"
                rel="noopener noreferrer">
-              Visit Professional Portfolio
+              Visit professional portfolio
             </a>
 
             <a class="button button-secondary"
                href="https://github.com/Borak002/application-support-toolkit"
                target="_blank"
                rel="noopener noreferrer">
-              View Source on GitHub
+              View source on GitHub
             </a>
           </div>
         </div>
@@ -979,35 +1110,68 @@ OWNER / ESCALATION TEAM:</div>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <span>© <span id="year"></span> Balogun Razaq Olamilekan</span>
+      <span>&copy; <span id="year">2026</span> Balogun Razaq Olamilekan</span>
       <span>Application Support · Technical Operations · Customer Experience</span>
     </div>
   </footer>
 
   <script>
-    const searchInput = document.getElementById("resourceSearch");
-    const cards = document.querySelectorAll("#resourceGrid .card");
-    const emptyState = document.getElementById("emptyState");
+    (function () {
+      "use strict";
 
-    searchInput.addEventListener("input", function () {
-      const query = this.value.trim().toLowerCase();
-      let visibleCount = 0;
+      /* ---------- Search filter ---------- */
+      const searchInput = document.getElementById("resourceSearch");
+      const emptyState  = document.getElementById("emptyState");
+      const cards       = Array.from(document.querySelectorAll("#resourceGrid .card"));
 
-      cards.forEach(function (card) {
-        const searchableText =
-          (card.innerText + " " + card.dataset.search).toLowerCase();
-
-        const matches = searchableText.includes(query);
-        card.style.display = matches ? "flex" : "none";
-
-        if (matches) visibleCount++;
+      // Build each card's searchable text once, instead of on every keystroke.
+      const index = cards.map(function (card) {
+        return (card.textContent + " " + card.dataset.search)
+          .toLowerCase()
+          .replace(/\s+/g, " ");
       });
 
-      emptyState.style.display = visibleCount ? "none" : "block";
-    });
+      searchInput.addEventListener("input", function () {
+        const query = searchInput.value.trim().toLowerCase();
+        let visible = 0;
 
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+        cards.forEach(function (card, i) {
+          const match = index[i].includes(query);
+          card.hidden = !match;
+          if (match) visible++;
+        });
+
+        emptyState.hidden = visible > 0;
+      });
+
+      /* ---------- Copy buttons for code blocks ---------- */
+      document.querySelectorAll(".code-wrap").forEach(function (wrap) {
+        const code = wrap.querySelector("code");
+        const btn  = document.createElement("button");
+
+        btn.type = "button";
+        btn.className = "copy-btn";
+        btn.textContent = "Copy";
+        btn.setAttribute("aria-label", "Copy code to clipboard");
+
+        btn.addEventListener("click", function () {
+          if (!navigator.clipboard) return;
+
+          navigator.clipboard.writeText(code.textContent).then(function () {
+            btn.textContent = "Copied";
+            setTimeout(function () { btn.textContent = "Copy"; }, 1500);
+          }).catch(function () {
+            btn.textContent = "Failed";
+            setTimeout(function () { btn.textContent = "Copy"; }, 1500);
+          });
+        });
+
+        wrap.appendChild(btn);
+      });
+
+      /* ---------- Footer year ---------- */
+      document.getElementById("year").textContent = new Date().getFullYear();
+    })();
   </script>
 </body>
 </html>
