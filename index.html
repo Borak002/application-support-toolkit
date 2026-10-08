@@ -462,7 +462,20 @@
 
         <div class="grid" id="resourceGrid">
           <article class="card" data-search="incident management sla severity escalation root cause">
-            <div class="card-icon">🚨</div>
+            <div class="card-icon">🚨
+<article class="card" data-search="case study production incident http 500 database logs root cause deployment">
+  <div class="card-icon">🔎</div>
+  <h3>Production Incident Case Study</h3>
+  <p>
+    Investigate an HTTP 500 incident after deployment,
+    correlate logs, identify a configuration fault,
+    and validate service recovery.
+  </p>
+  <a class="card-link" href="#case-study-500">
+    Read the case study →
+  </a>
+</article>
+</div>
             <h3>Incident Management</h3>
             <p>
               Assess impact, prioritize incidents, collect evidence,
@@ -592,6 +605,115 @@
     </section>
 
     <section class="section" id="linux">
+      
+<section class="section" id="case-study-500">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Case Study 01 / Production Support</div>
+      <h2>Resolving an HTTP 500 incident</h2>
+      <p>
+        A simulated investigation showing how an application
+        support engineer moves from an initial symptom to
+        an evidence-based resolution.
+      </p>
+    </div>
+
+    <div class="resource">
+      <h3>Incident summary</h3>
+      <p>
+        Following a routine application deployment, users begin
+        receiving HTTP 500 responses from an API endpoint.
+        The application process is running, but requests that
+        require database access are failing.
+      </p>
+
+      <h4>Business impact</h4>
+      <ul>
+        <li>Users cannot complete the affected operations.</li>
+        <li>Support tickets and failure rates increase.</li>
+        <li>Other endpoints must be checked to establish the scope.</li>
+      </ul>
+
+      <h3>Investigation timeline</h3>
+      <ol>
+        <li>
+          <strong>Detect:</strong>
+          Confirm the first reported failure, affected endpoint,
+          timestamps, error rate, and impacted users.
+        </li>
+        <li>
+          <strong>Assess:</strong>
+          Check whether the incident is isolated to one endpoint
+          or affects multiple application functions.
+        </li>
+        <li>
+          <strong>Investigate:</strong>
+          Correlate application logs with the deployment time
+          and inspect database connectivity and configuration.
+        </li>
+        <li>
+          <strong>Identify:</strong>
+          The illustrative evidence indicates that the new
+          deployment references an incorrect database host.
+        </li>
+        <li>
+          <strong>Resolve:</strong>
+          Correct the configuration through the approved change
+          process and restart or reload the service if required.
+        </li>
+        <li>
+          <strong>Verify:</strong>
+          Confirm successful database connections, successful
+          API responses, and recovery of the affected operation.
+        </li>
+      </ol>
+
+      <h3>Example log evidence</h3>
+      <div class="code-block">2026-10-08 09:14:22 ERROR Database connection failed
+2026-10-08 09:14:22 ERROR Host=db-primary.invalid
+2026-10-08 09:14:22 ERROR RequestId=demo-7f31
+2026-10-08 09:14:23 INFO  HTTP POST /api/orders -> 500</div>
+
+      <p>
+        These log entries are fictional examples for demonstration.
+        In a real incident, correlate the request ID and timestamps
+        with the actual application and database logs.
+      </p>
+
+      <h3>Root cause</h3>
+      <p>
+        In this simulated scenario, a database host configuration
+        was incorrect after deployment. The API could not establish
+        the required database connection, and affected requests
+        returned HTTP 500.
+      </p>
+
+      <h3>Corrective actions</h3>
+      <ul>
+        <li>Restore the correct database endpoint using approved configuration.</li>
+        <li>Verify network access, credentials, and database availability.</li>
+        <li>Test the affected API operation using an authorized test request.</li>
+        <li>Monitor error rates and application logs after recovery.</li>
+        <li>Communicate service status and document the incident.</li>
+      </ul>
+
+      <h3>Preventive actions</h3>
+      <ul>
+        <li>Validate required configuration before deployment.</li>
+        <li>Add database connectivity checks to deployment verification.</li>
+        <li>Alert on abnormal HTTP 500 rates and database connection failures.</li>
+        <li>Document configuration rollback and recovery procedures.</li>
+      </ul>
+
+      <div class="note">
+        Key lesson: an HTTP 500 response identifies a server-side
+        failure, not its root cause. The diagnosis must be supported
+        by logs, configuration checks, and reproducible evidence.
+      </div>
+    </div>
+  </div>
+</section>
+
       <div class="container">
         <div class="section-heading">
           <div class="eyebrow">02 / Server Diagnostics</div>
